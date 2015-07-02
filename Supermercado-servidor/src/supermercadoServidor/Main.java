@@ -22,7 +22,7 @@ public class Main {
 		thread.start();
 		
 		@SuppressWarnings("resource")
-		ServerSocket servidor = new ServerSocket(12345);
+		ServerSocket servidor = new ServerSocket(Integer.parseInt(args[0]));
 		/*
 		 * Loop responsável pela criação das threads do cliente,
 		 * a cada requisito de conexão com o servidor é criado uma thread.
