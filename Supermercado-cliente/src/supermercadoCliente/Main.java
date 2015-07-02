@@ -15,6 +15,7 @@ public class Main {
 		Cliente cliente;
 		try {
 			cliente = new Cliente();
+			cliente.setSocket(args[0], Integer.parseInt(args[1]));
 			cliente.rodar();
 		} catch (IOException e) {
 			System.out.println("Erro ao tentar criar Objeto cliente. " + e);
