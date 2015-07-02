@@ -199,12 +199,9 @@ public class ConexaoCliente implements Runnable {
 			venda();
 			break;
 		case 3:
-			//remove produto
+			totalAPagar();
 			break;
 		case 4:
-			//finalizar compra
-			break;
-		case 5:
 			break;
 		default:
 			System.out.println("erro.");
@@ -217,20 +214,19 @@ public class ConexaoCliente implements Runnable {
 	private void listar() throws IOException {
 		int tamanhoLista = venda.getLista().size();
 		saidaInt.writeInt(tamanhoLista);
-		int i = 0;
+
 		if(tamanhoLista == 0) {
 			//lista vazia.
 		} else {
 			for(String[] temp : venda.getLista()) {
-				saidaString.println(String.valueOf(i) + " - " + Arrays.toString(temp));
-				i++;
+				saidaString.println(Arrays.toString(temp));
 			}
 		}
 		
 	}
 	
 	private void venda() throws IOException {
-		//CSVWriter reg = new CSVWriter(new FileWriter("arquivos/" + clienteArq, true));
+		CSVWriter reg = new CSVWriter(new FileWriter("arquivos/" + clienteArq, true));
 		
 		CSVReader ler = new CSVReader(new FileReader(csvArqProduto));
 		String produto = entradaString.readLine();
@@ -254,16 +250,23 @@ public class ConexaoCliente implements Runnable {
 					if(quantidade <= produtoQtd) {
 						String[] dados = (li[0] + "#"
 										+ li[3] + "#"
-										+ quantidade).split("#");
+										+ quantidade + "#"
+										+ li[1]).split("#");
+						reg.writeNext(dados);
 						venda.addProduto(dados);
 						aux++;
+						atualizaEstoque(li[0], (produtoQtd - quantidade));
+						double preco = Double.parseDouble(li[1]);
+						venda.setTotal((preco * quantidade));
 						saidaInt.writeBoolean(true);
 						ler.close();
+						reg.close();
 						break;
 					} else {
 						saidaInt.writeBoolean(false);
 						aux++;
 						ler.close();
+						reg.close();
 						break;
 					}
 				}
@@ -276,6 +279,10 @@ public class ConexaoCliente implements Runnable {
 		saidaInt.writeBoolean(false);
 		saidaInt.writeInt(aux);
 		ler.close();
+	}
+	
+	private void totalAPagar() throws IOException {
+		saidaInt.writeDouble(venda.getTotal());
 	}
 	
 	private void atualizaEstoque(String produto, int quantidade) throws IOException {

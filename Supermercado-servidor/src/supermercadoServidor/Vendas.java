@@ -25,6 +25,10 @@ public class Vendas {
 		lista.add(registro);
 	}
 	
+	public void removeProduto(int index) {
+		lista.remove(index);
+	}
+	
 	public void setTotal(double item) {
 		this.total += item;
 	}
