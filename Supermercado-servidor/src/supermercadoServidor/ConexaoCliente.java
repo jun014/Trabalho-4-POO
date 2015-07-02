@@ -252,7 +252,7 @@ public class ConexaoCliente implements Runnable {
 										+ li[3] + "#"
 										+ quantidade + "#"
 										+ li[1]).split("#");
-						reg.writeNext(dados);
+						reg.writeNext(dados, false);
 						venda.addProduto(dados);
 						aux++;
 						atualizaEstoque(li[0], (produtoQtd - quantidade));
