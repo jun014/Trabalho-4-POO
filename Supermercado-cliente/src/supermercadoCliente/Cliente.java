@@ -185,9 +185,8 @@ public class Cliente {
 		System.out.println("Menu do carrinho de compras.");
 		System.out.println("1 - Visualizar carrinho de compras;");
 		System.out.println("2 - Adicionar produto;");
-		System.out.println("3 - Remover produto;");
-		System.out.println("4 - Finalizar compras;");
-		System.out.println("5 - Voltar para o menu anterior.");
+		System.out.println("3 - Total a pagar;");
+		System.out.println("4 - Voltar para o menu anterior.");
 		int menu = entradaI();
 		try {
 			saidaInt.writeInt(menu);
@@ -199,12 +198,9 @@ public class Cliente {
 				compra();
 				break;
 			case 3:
-				//remove produto
+				totalAPagar();
 				break;
 			case 4:
-				//finalizar compra
-				break;
-			case 5:
 				break;
 			default:
 				System.out.println("erro.");
@@ -224,6 +220,7 @@ public class Cliente {
 				System.out.println(entradaString.readLine());
 			}
 		}
+		System.out.print('\n');
 	}
 	
 	private void compra() throws IOException {
@@ -264,6 +261,10 @@ public class Cliente {
 		if(entradaInt.readInt() == 0) {
 			System.out.println("Produto nao encontrado no estoque." + '\n');
 		}
+	}
+	
+	private void totalAPagar() throws IOException {
+		System.out.println("Total a pagar: " + entradaInt.readDouble());
 	}
 	
 }
