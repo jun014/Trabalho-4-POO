@@ -22,6 +22,10 @@ public class Cliente {
 	DataInputStream entradaInt;
 	DataOutputStream saidaInt;
 	
+	public void setSocket(String endereco, int porta) throws UnknownHostException, IOException {
+		socket = new Socket(endereco, porta);
+	}
+	
 	public Cliente() throws UnknownHostException, IOException {
 		String endereco = "127.0.0.1";
 		
